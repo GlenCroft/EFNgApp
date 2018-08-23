@@ -1,0 +1,35 @@
+<h1>Employees</h1>
+
+<p>
+  <a [routerLink]="['/register-employee']">Create New</a>
+</p>
+
+<table *ngIf="!loading else loadingIndicator" class='table' >
+  <thead>
+    <tr>
+      <th>EmployeeId</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Department</th>
+      <th>City</th>
+      <th><small>Actions</small></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let emp of employees$ | async">
+      <td>{{ emp.employeeId }}</td>
+      <td>{{ emp.name }}</td>
+      <td>{{ emp.gender }}</td>
+      <td>{{ emp.department }}</td>
+      <td>{{ emp.city }}</td>
+      <td>
+        <a [routerLink]="['/employee/edit/', emp.employeeId]">Edit</a> |
+        <a [routerLink]="" (click)="delete(emp.employeeId)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #loadingIndicator>
+  <p *ngIf="loading"><em>Loading...</em></p>
+</ng-template>
